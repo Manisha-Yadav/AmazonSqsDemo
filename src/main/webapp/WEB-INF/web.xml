@@ -1,0 +1,42 @@
+<web-app>
+    <servlet>
+        <servlet-name>createQueue</servlet-name>
+        <servlet-class>com.message.endpoints.CreateQueue</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>createQueue</servlet-name>
+        <url-pattern>/createQueue</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>sendMessage</servlet-name>
+        <servlet-class>com.message.endpoints.SendMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>sendMessage</servlet-name>
+        <url-pattern>/sendMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>processMessage</servlet-name>
+        <servlet-class>com.message.endpoints.ProcessMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>processMessage</servlet-name>
+        <url-pattern>/processMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deadLetterQueue</servlet-name>
+        <servlet-class>com.message.endpoints.DeadLetterQueue</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deadLetterQueue</servlet-name>
+        <url-pattern>/deadLetterQueue</url-pattern>
+    </servlet-mapping>
+
+</web-app>
