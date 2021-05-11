@@ -61,6 +61,10 @@ public class CreateQueue extends HttpServlet {
                 queueAttributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, waitTimeSeconds);
             }
 
+            if(queueName.endsWith(".fifo")){
+                queueAttributes.put(QueueAttributeName.FIFO_QUEUE, Boolean.TRUE.toString());
+            }
+
             if (!queueAttributes.keySet().isEmpty()) {
                 builder.attributes(queueAttributes);
             }

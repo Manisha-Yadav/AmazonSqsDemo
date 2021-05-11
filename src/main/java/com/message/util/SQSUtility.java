@@ -30,7 +30,7 @@ public class SQSUtility {
         return url;
     }
 
-    private static String getQueueUrl(String queueName) {
+    public static String getQueueUrl(String queueName) {
         GetQueueUrlRequest queueUrlRequest = GetQueueUrlRequest.builder().queueName(queueName).build();
         return sqsClient.getQueueUrl(queueUrlRequest).queueUrl();
     }
@@ -61,9 +61,8 @@ public class SQSUtility {
             return sqsClient.receiveMessage(receiveMessageRequest).messages();
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            throw e;
         }
-        return null;
     }
 
     public static void linkDeadLetterQueue(String srcUrl , String deadLetterQueueUrl, Integer maxReceiveCount) {
@@ -97,7 +96,7 @@ public class SQSUtility {
             sqsClient.deleteMessage(deleteMessageRequest);
         } catch (SqsException e) {
                 System.err.println(e.awsErrorDetails().errorMessage());
-                System.exit(1);
+                throw e;
         }
     }
 
@@ -106,9 +105,8 @@ public class SQSUtility {
             return sqsClient.sendMessage(sendMsgRequest);
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            throw e;
         }
-        return null;
     }
 
     /*
@@ -122,7 +120,7 @@ public class SQSUtility {
             sqsClient.changeMessageVisibility(req);
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            throw e;
         }
     }
 
@@ -137,7 +135,7 @@ public class SQSUtility {
                                                                 .build();
             GetQueueAttributesResponse response = sqsClient.getQueueAttributes(attributesRequest);
 
-            Map<QueueAttributeName,String> queueAtts = response.attributes();
+            Map<QueueAttributeName, String> queueAtts = response.attributes();
 
             for (Map.Entry<QueueAttributeName,String> queueAtt : queueAtts.entrySet()){
                     if(queueAtt.getKey().equals(attributeName)){
@@ -146,7 +144,7 @@ public class SQSUtility {
             }
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            throw e;
         }
         return null;
     }

@@ -31,6 +31,7 @@ public class ProcessMessage extends HttpServlet {
     public static final int VISIBILITY_INCREMENT = 10;
 
     private static final Map<String, String> TEMP_IN_MEMORY_STORAGE = new HashMap<>();
+    public static final int BASE_TIME = 100;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, JsonProcessingException {
 
@@ -123,7 +124,7 @@ public class ProcessMessage extends HttpServlet {
                 messageId, complexityFactor, requestCorrelationId, LocalDateTime.now());
         try {
             if (!TEMP_IN_MEMORY_STORAGE.containsKey(messageId)) {
-                Thread.sleep(complexityFactor * 10000);
+                Thread.sleep(complexityFactor * BASE_TIME);
                 if (TEMP_IN_MEMORY_STORAGE.containsKey(messageId)) {
                     System.out.format("MESSAGE = %s ; COMPLEXITY = %d ; REQUEST CORRELATION ID = %s ; STATUS = ALREADY_PROCESSED; TIME = %s %n",
                             messageId, complexityFactor, TEMP_IN_MEMORY_STORAGE.get(messageId), LocalDateTime.now());
